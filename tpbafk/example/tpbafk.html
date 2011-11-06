@@ -4,7 +4,6 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script src="../../lib/popcorn/popcorn.js"></script>
-    <script src="../../lib/iscroll/iscroll-lite.js"></script>
     <script src="../timefeed.js"></script>
     <script src="example.js"></script>
 
@@ -27,7 +26,6 @@
 
             // Create a popcorn instance by calling the Youtube player plugin
             example = Popcorn("#video");
-            example.volume(0);
 
             // todo: debug why this doesn't fire
             $("#video").bind('ended', function(){
@@ -62,6 +60,7 @@
                 start: 15.23,
                 target : "#feeddiv",
                     body: 'Sara Sajjad',
+                img: "http://a3.twimg.com/profile_images/1569492387/saraa_reasonably_small.png",
                 href : "https://twitter.com/#!/fraux"
             });
 
@@ -76,6 +75,7 @@
                 start: 19.04,
                 target : "#feeddiv",
                 body: 'Rasmus Fleischer',
+                img : 'http://a0.twimg.com/profile_images/1294525540/Bild_2011-03-31_kl._14.27__5_reasonably_small.jpg',
                 href : "http://copyriot.se/2009/02/17/the-spectrial-manus-till-en-teater-akt-ett-scen-ett-mandag-kring-ratten/"
             });
 
@@ -139,6 +139,7 @@
                 start: 41.20,
                 target : "#feeddiv",
                 body: 'Johan Allgoth',
+                img : "http://a1.twimg.com/profile_images/1253987127/n883465299_3206678_8448_reasonably_small.jpg",
                 href : "http://johanallgoth.se/"
             });
 
@@ -198,7 +199,7 @@
 
 <body>
 <div class="container">
-    <video style="background:#000" id="video" preload="auto" autobuffer="" loop="loop" controls="controls" poster="http://videos.mozilla.org/serv/webmademovies/popcornposter.png">
+    <video style="background:#000" id="video" loop="" controls="">
         <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.mp4" type="video/mp4">-->
         <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.webm" type="video/webM">-->
         <source src="http://www.tpbafk.tv/augumentary/video/TPB_AFK_Demo720.theora.ogv" type="video/ogg">
