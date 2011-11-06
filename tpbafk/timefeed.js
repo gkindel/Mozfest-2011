@@ -76,6 +76,7 @@
             });
 
             el.find('a').click( function (e) {
+                // don't seek
                 e.stopPropagation();
             });
 
@@ -110,6 +111,10 @@
             });
         },
 
+        hideAll : function () {
+            $(this.el).find('.item').hide();
+        },
+
         toggle : function (bool) {
             var show;
             if( bool == null)
@@ -119,6 +124,10 @@
             else
                 show = 0;
             $('#feeddiv').animate({'opacity': show});
+        },
+
+        onFirstItem : function () {
+            /// abstract, callback
         }
 
     };
@@ -130,18 +139,27 @@
     if( ! Popcorn )
         return;
 
+    var hasItems = false;
     Popcorn.plugin( "timefeed" , {
         _setup : function (options) {
             timefeed(options.target).player(this);
             timefeed(options.target).add(options);
         },
         start : function (event, options) {
+            var tf = timefeed(options.target);
+            if( ! tf.hasItems ){
+                tf.hasItems = true;
+                tf.onFirstItem && tf.onFirstItem();
+            }
             timefeed(options.target).render(options, this);
         },
         end : function (event, options) {
             timefeed(options.target).blur(options);
         },
-        teardown : function (options) {
+        _teardown : function (options) {
+            var tf = timefeed(options.target);
+            tf.hasItems = false;
+            tf.hideAll();
 
         }
     });

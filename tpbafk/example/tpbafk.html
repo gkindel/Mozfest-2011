@@ -4,7 +4,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script src="../../lib/popcorn/popcorn.js"></script>
-
+    <script src="../../lib/iscroll/iscroll-lite.js"></script>
     <script src="../timefeed.js"></script>
     <script src="example.js"></script>
 
@@ -17,14 +17,23 @@
         // ensure the web page (DOM) has loaded
         document.addEventListener("DOMContentLoaded", function () {
 
-            timefeed('#feeddiv', {
+            var tf = timefeed('#feeddiv', {
                 highlight: false
             });
+
+            tf.onFirstItem = function () {
+                toggleOverlay(true);
+            };
 
             // Create a popcorn instance by calling the Youtube player plugin
             example = Popcorn("#video");
             example.volume(0);
 
+            // todo: debug why this doesn't fire
+            $("#video").bind('ended', function(){
+//                tf.hideAll();
+
+            });
 
             example.timefeed({
                 start: 10,
@@ -52,7 +61,7 @@
             example.timefeed({
                 start: 15.23,
                 target : "#feeddiv",
-                body: 'Sara Sajjad',
+                    body: 'Sara Sajjad',
                 href : "https://twitter.com/#!/fraux"
             });
 
@@ -176,7 +185,7 @@
             });
 
             // initial render
-            toggleOverlay(true, true);
+            toggleOverlay(false, true);
 
             // play
             example.play();
@@ -189,7 +198,7 @@
 
 <body>
 <div class="container">
-    <video style="background:#000" id="video" preload="auto" autobuffer="" controls="" poster="http://videos.mozilla.org/serv/webmademovies/popcornposter.png">
+    <video style="background:#000" id="video" preload="auto" autobuffer="" loop="loop" controls="controls" poster="http://videos.mozilla.org/serv/webmademovies/popcornposter.png">
         <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.mp4" type="video/mp4">-->
         <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.webm" type="video/webM">-->
         <source src="http://www.tpbafk.tv/augumentary/video/TPB_AFK_Demo720.theora.ogv" type="video/ogg">
@@ -197,7 +206,7 @@
     </video>
     <!--<div id="viddeo">dum-->
     <!--</div>-->
-    <div class="feed">
+    <div id="feed" class="feed">
         <div class="searchdiv">
             <input type=text class="search" placeholder="Search">
         </div>

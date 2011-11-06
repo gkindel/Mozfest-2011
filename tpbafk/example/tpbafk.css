@@ -6,8 +6,6 @@ body {
 #video {
     width: 100%;
     height: 100%;
-    background: white;
-    opacity: .5;
     float: left;
 }
 
@@ -28,15 +26,18 @@ body {
 
 .item {
     background: rgba(66,66,66, .5);
+    width: 265px;
 }
 .item .title {
     display : none;
 }
+
 .item .title,
 .item .body {
     color: white;
 }
-    .item .link,
+
+.item .link,
 .item .link:hover
 {
     color:   #49827B;
@@ -49,8 +50,12 @@ body {
     display: none;
 }
 
-.search {
+.searchdiv {
+    display: none;
+}
 
+#feeddiv {
+    top : 0;
 }
 
 .item .link {
