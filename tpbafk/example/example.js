@@ -3,9 +3,9 @@ $( function () {
     var fullwidth = false;
 
 
-    $('#video').click( function () {
-        toggleOverlay();
-    });
+//    $('#video').click( function () {
+//        toggleOverlay();
+//    });
 
     $('.feed').mouseenter( function (){
         example.pause();
@@ -24,9 +24,12 @@ function toggleOverlay( bool, now ){
     var vw = fullwidth ? cw : cw - tw;
 
     if( now )
-        $('#video').width(vw);
+        $('#videodiv').width(vw);
     else
-        $('#video').animate({width:  vw}, 1000);
+        $('#videodiv').animate({width:  vw}, 1000);
+
+
+    $('.tab').text( fullwidth ? "+" : "-");
 
     $('.feed').stop().animate({
         'width': (fullwidth ? 0 : 300),

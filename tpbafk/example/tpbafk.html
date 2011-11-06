@@ -2,6 +2,8 @@
 <html>
 <head>
 
+    <!-- Images courtesy of CC -->
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script src="../../lib/popcorn/popcorn.js"></script>
     <script src="../timefeed.js"></script>
@@ -21,6 +23,7 @@
             });
 
             tf.onFirstItem = function () {
+                $('.tab').show();
                 toggleOverlay(true);
             };
 
@@ -29,8 +32,11 @@
 
             // todo: debug why this doesn't fire
             $("#video").bind('ended', function(){
-//                tf.hideAll();
+                tf.hideAll();
+            });
 
+            $('.tab').click( function () {
+                toggleOverlay();
             });
 
             example.timefeed({
@@ -59,7 +65,7 @@
             example.timefeed({
                 start: 15.23,
                 target : "#feeddiv",
-                    body: 'Sara Sajjad',
+                body: 'Sara Sajjad',
                 img: "http://a3.twimg.com/profile_images/1569492387/saraa_reasonably_small.png",
                 href : "https://twitter.com/#!/fraux"
             });
@@ -200,15 +206,19 @@
 
 <body>
 <div class="container">
-    <video style="background:#000" id="video" loop="" controls="">
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.mp4" type="video/mp4">-->
-        <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.webm" type="video/webM">-->
-        <source src="http://www.henrikmoltke.dk/TPB_AFK_Demo720.theora.ogv" type="video/ogg">
-        <p>Your user agent does not support the HTML5 Video element.</p>
-    </video>
-    <!--<div id="viddeo">dum-->
-    <!--</div>-->
+    <div id="videodiv" class="videodiv">
+        <video style="background:#000" id="video" loop="" controls="">
+            <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.mp4" type="video/mp4">-->
+            <!--<source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.webm" type="video/webM">-->
+            <source src="http://www.tpbafk.tv/augumentary/video/TPB_AFK_Demo720.theora.ogv" type="video/ogg">
+            <p>Your user agent does not support the HTML5 Video element.</p>
+        </video>
+        <div class="tab" style="padding-top: 6px; padding-left: 6px;">
+            +
+        </div>
+    </div>
     <div id="feed" class="feed">
+
         <div class="searchdiv">
             <input type=text class="search" placeholder="Search">
         </div>
