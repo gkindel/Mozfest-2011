@@ -15,12 +15,15 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    width: 305px;
+    width: 315px;
     padding-left: 5px;
     height: 100%;
     background:  black;
-    /*overflow-y:  scroll;*/
-    overflow: hidden;
+    /*overflow: hidden;*/
+}
+
+#feeddiv {
+    overflow-y:  auto;
 }
 
 .item {
@@ -48,4 +51,8 @@ body {
 
 .search {
 
+}
+
+.item .link {
+    white-space: nowrap;
 }

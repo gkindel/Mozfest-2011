@@ -25,59 +25,155 @@
             example = Popcorn("#video");
             example.volume(0);
 
+
             example.timefeed({
-                start: 1,
-                end: 5,
+                start: 10,
                 target : "#feeddiv",
-                title: 'Director',
-                body: 'Kevin Spacey',
-                href : "http://www.imdb.com/name/nm0000228/"
+                title: 'Bus',
+                body: 'The Pirate Bus',
+                href : "http://piratbyran.org/s23k/"
             });
 
             example.timefeed({
-                start: 6,
-                end: 10,
+                start: 12.24,
                 target : "#feeddiv",
-                body: 'PopcornJS',
-                img : 'http://t1.gstatic.com/images?q=tbn:ANd9GcT4ayBDA8UuNphnD6GBpIr-4Ksp2evNkYhCMbxTr2Tt4S-7Pej6',
-                href : "http://www.popcornjs.org/"
+                body: 'The Mickey Mouse Act',
+                img : '',
+                href : "http://en.wikipedia.org/wiki/Copyright_Term_Extension_Act"
             });
 
             example.timefeed({
-                start: 8,
-                end: 12,
+                start: 14.5,
                 target : "#feeddiv",
-                title: '"...pirated disk..."',
-                body: 'The pirated CD was Depeche Mode',
-                img : "http://www.ihavesynth.com/sites/ihavesynth.com/files/blog/images/depeche-mode.jpg?1260893100",
-                href : "http://www.piratebay.com/some/deep/link/..."
+                body: 'Piratbyrån',
+                href : "http://en.wikipedia.org/wiki/Piratbyr%C3%A5n"
             });
 
             example.timefeed({
-                start: 16,
-                end: 20,
+                start: 15.23,
                 target : "#feeddiv",
-                title: '"...flying a kite..."',
-                body: 'Learn more about "kites"',
-                href : "http://www.wikipedia.org/some/deep/link/..."
+                body: 'Sara Sajjad',
+                href : "https://twitter.com/#!/fraux"
             });
 
+            example.timefeed({
+                start: 17.21,
+                target : "#feeddiv",
+                body: 'Dani Alba',
+                href : "http://www.facebook.com/profile.php?id=689754738"
+            });
 
+            example.timefeed({
+                start: 19.04,
+                target : "#feeddiv",
+                body: 'Rasmus Fleischer',
+                href : "http://copyriot.se/2009/02/17/the-spectrial-manus-till-en-teater-akt-ett-scen-ett-mandag-kring-ratten/"
+            });
 
+//            example.timefeed({
+//                start: 19.22,
+//                target : "#feeddiv",
+//                body: 'PromenadorQuestern',
+//                href : "http://pq.for.ths.kth.se/"
+//            });
 
-            // generate placeholder cues
-            for(var i = 4; i < 20 ; i++ ){
-                example.timefeed({
-                    start: 2 * i + i,
-                    end: 4 * i + i + 5,
-                    target : "#feeddiv",
-                    title: '"quoted text here"',
-                    body: 'Test item ' + i,
-                    href : "http://www.google.com/some/deep/link/..."
-                });
+            example.timefeed({
+                start: 21.03,
+                target : "#feeddiv",
+                body: 'Marcin de Kaminski',
+                href : "http://twitter.com/#!/dekaminski"
+            });
 
-            }
+            example.timefeed({
+                start: 22.07,
+                target : "#feeddiv",
+                body: 'Bambuser Live Stream',
+                href : "http://bambuser.com/channel/Spectrial/broadcast/67570"
+            });
 
+            example.timefeed({
+                start: 24.21,
+                target : "#feeddiv",
+                body: 'Magnus Eriksson',
+                href : "http://www.facebook.com/svartfax"
+            });
+
+            example.timefeed({
+                start: 27.20,
+                target : "#feeddiv",
+                body: 'District Court',
+                href : "http://www.google.se/maps?q=stockholm+district+court&hl=sv&ie=UTF8&sll=59.332839,18.044014&sspn=0.124854,0.445976&vpsrc=0&hq=district"
+            });
+
+            example.timefeed({
+                start: 30.06,
+                target : "#feeddiv",
+                body: 'CNN',
+                href : "http://articles.cnn.com/2009-04-16/tech/sweden.piracy_1_file-sharing-pirate-bay-copyright?_s=PM:TECH"
+            });
+
+            example.timefeed({
+                start: 34.09,
+                target : "#feeddiv",
+                body: ' Pirate Party',
+                href : "http://en.wikipedia.org/wiki/Pirate_Party_%28Sweden%29"
+            });
+
+            example.timefeed({
+                start: 36.14,
+                target : "#feeddiv",
+                body: 'Rick Falkvinge',
+                href : "http://translate.google.com/translate?hl=en&sl=sv&tl=en&u=http%3A%2F%2Ffalkvinge.net%2F2009%2F02%2F16%2Fartiondets-politiska-rattegang-har-startat%2F&anno=2"
+            });
+
+            example.timefeed({
+                start: 41.20,
+                target : "#feeddiv",
+                body: 'Johan Allgoth',
+                href : "http://johanallgoth.se/"
+            });
+
+            example.timefeed({
+                start: 43.22,
+                target : "#feeddiv",
+                body: 'Al Jazeera',
+                href : "http://english.aljazeera.net/news/europe/2008/01/2008525124147351129.html"
+            });
+
+            example.timefeed({
+                start: 49,
+                target : "#feeddiv",
+                body: 'Peter Sunde tweet',
+                href : "https://twitter.com/#!/brokep/status/1214815613"
+            });
+
+            example.timefeed({
+                start: 50,
+                target : "#feeddiv",
+                body: 'First Court Tweet',
+                href : "http://journlaw.com/2011/07/06/who-was-first-to-tweet-from-court/"
+            });
+
+            example.timefeed({
+                start: 52,
+                target : "#feeddiv",
+                body: 'Blog of Peter',
+                href : "http://blog.brokep.com/"
+            });
+
+            example.timefeed({
+                start: 55,
+                target : "#feeddiv",
+                body: 'Gottfrid Svartholm Warg',
+                href : "http://www.youtube.com/watch?v=uENqtT5AP_w"
+            });
+
+            example.timefeed({
+                start: 58,
+                target : "#feeddiv",
+                body: 'Depeche Mode',
+                href : "http://www.youtube.com/user/dmdotcom?blend=1&ob=4"
+            });
 
             // initial render
             toggleOverlay(true, true);
@@ -89,11 +185,8 @@
 
     </script>
 
-    <style>
-
-    </style>
-
 </head>
+
 <body>
 <div class="container">
     <video style="background:#000" id="video" preload="auto" autobuffer="" controls="" poster="http://videos.mozilla.org/serv/webmademovies/popcornposter.png">
@@ -109,10 +202,9 @@
             <input type=text class="search" placeholder="Search">
         </div>
         <div id="feeddiv">
+        </div>
     </div>
 </div>
-
-
 
 </body>
 </html>
