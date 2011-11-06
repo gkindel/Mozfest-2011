@@ -39,6 +39,9 @@ body {
     color:   #49827B;
 }
 
+.item:hover {
+    background: rgba(99,99,99, .5);;
+}
 .item .time {
     display: none;
 }

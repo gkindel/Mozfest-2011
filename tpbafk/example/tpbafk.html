@@ -30,7 +30,7 @@
                 end: 5,
                 target : "#feeddiv",
                 title: 'Director',
-                body: 'Kevin Spacy',
+                body: 'Kevin Spacey',
                 href : "http://www.imdb.com/name/nm0000228/"
             });
 
@@ -61,6 +61,23 @@
                 body: 'Learn more about "kites"',
                 href : "http://www.wikipedia.org/some/deep/link/..."
             });
+
+
+
+
+            // generate placeholder cues
+            for(var i = 4; i < 20 ; i++ ){
+                example.timefeed({
+                    start: 2 * i + i,
+                    end: 4 * i + i + 5,
+                    target : "#feeddiv",
+                    title: '"quoted text here"',
+                    body: 'Test item ' + i,
+                    href : "http://www.google.com/some/deep/link/..."
+                });
+
+            }
+
 
             // initial render
             toggleOverlay(true, true);
