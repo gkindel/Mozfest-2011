@@ -13,18 +13,18 @@ var Overlay = function (popcorn) {
         $('.bigplay').hide();
     });
 
-//    $('.tab').bind("click", function (e){
-//        self.toggle();
-//        e.preventDefault();
-//    });
-
-    $('#video').bind('click touchend', function (){
-        if( popcorn.paused() )
-            popcorn.play();
-        else {
-            popcorn.pause();
-        }
+    $('.tab').bind("click", function (e){
+        self.toggle();
+        e.preventDefault();
     });
+//
+//    $('#video').bind('click touchend', function (){
+//        if( popcorn.paused() )
+//            popcorn.play();
+//        else {
+//            popcorn.pause();
+//        }
+//    });
 
     $('.search').bind('focus', function () {
         $('.search').css('opacity', 1)
