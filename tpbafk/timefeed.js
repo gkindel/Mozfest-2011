@@ -3,7 +3,9 @@
     var $ = jQuery;
 
     var defaults = {
-        hightlight: true
+        highlight: true,
+        list : false,
+        duration : null
     };
 
     var TimeFeed = function ( target, options ) {
@@ -17,6 +19,7 @@
         this.config = $.extend({}, defaults, options);
         this.items = [];
         this.el = target;
+        $(this.el).append("<div class='scroller'></div>");
         this.options = options;
         this.visible = true;
 
@@ -27,61 +30,101 @@
 
     TimeFeed.getFav = function  ( url ) {
         var matches = url.match(/(https?:\/\/[^\/]*)/);
-        return matches[1] + "/favicon.ico";
+        if( matches )
+            return  matches[1] + "/favicon.ico";
     };
 
     TimeFeed.prototype =  {
-        add : function (options) {
-            var el = $("<div class='item'></item>");
-            el.append("<div class='title'></item>");
-            el.append("<div class='time'><span class='start'>N</span>s</item>");
-            el.append("<img class='ico' />");
-            el.append("<div class='body'></item>");
-            el.append("<a class='link'></a>");
-            el.css('opacity', 0);
-            el.hide();
-            $(this.el).prepend(el);
-            options._el = el;
-            this.items.push(options);
-            return el;
+
+        pageDown: function () {
+            var el = $(this.el).find('.scroller');
+            var h = el.height();
+            var st = el.scrollTop();
+            el.scrollTop(h + st);
         },
 
-        render : function (options, player){
-            var self= this;
-            var el = $(options._el);
-            el.find('.title').text( options.title );
-            el.find('.body').text( options.body );
+        pageUp: function () {
+            var el = $(this.el).find('.scroller');
+            var h = el.height();
+            var st = el.scrollTop();
+            el.scrollTop(h - st);
+        },
+
+        add : function (options) {
+
+            if ( this.config.duration )
+                options.end = options.start + this.config.duration;
+
+            var el = $("<div class='item'></item>");
+            el.append("<div class='time'><span class='start'>N</span>s</item>");
+            el.append("<img class='ico' />");
+            el.append("<div class='title'></item>");
+            el.append("<div class='body'></item>");
+            el.append("<a class='link'></a>");
+
+            options._el = el;
+            this.items.push(options);
+
+            if( this.config.list )
+                $(this.el).find('.scroller').append(el);
+            else
+                $(this.el).find('.scroller').prepend(el);
+
+            var self = this;
+
+            el.find('.title').html( options.title );
+
+            if( options.body )
+                el.find('.body').html( options.body );
+            else
+                el.find('.body').hide();
+
             el.find('.start').text( options.start );
             el.find('img').attr('src',  options.img || TimeFeed.getFav(options.href) );
             el.find('.link').attr('target',  "_blank");
+
             el.find('.link').attr('href',  options.href)
                 .text(options.href)
-                .click( function () {
-                    player.pause();
+                .click( function (e) {
+                    self._player.pause();
+                    e.stopPropagation();
             });
+
             el.click( function () {
-                if( player.paused() )
-                    player.pause(options.start);
+                if( self._player.paused() )
+                    self._player.pause(options.start);
                 else
-                    player.play(options.start);
-
+                    self._player.play(options.start);
             });
 
-            el.mouseenter( function (){
-                self.mouseEnter();
-            });
+            this.setItem(options);
+        },
 
-            el.mouseleave( function (){
-                self.mouseLeave();
-            });
+        filter : function (search) {
+            var self = this;
 
-            el.find('a').click( function (e) {
-                // don't seek
-                e.stopPropagation();
-            });
+            if( search.match(/\S/) )
+                this.filtered = search;
+            else
+                this.filtered = null
+            var re = RegExp(search, 'i');
 
-            el.show();
-            this.focus(options);
+
+            $.each(this.items, function (i, options){
+                var el = $(options._el);
+                if( ! self.filtered ){
+                    self.setItem(options)
+                }
+                else if( options.title && options.title.match(re)
+                    || options.body && options.body.match(re)
+                    || options.href && options.href.match(re)
+                    ) {
+                    self.setItem(options, true);
+                }
+                else {
+                    self.setItem(options, false)
+                }
+            });
         },
 
         player : function (popcorn) {
@@ -90,25 +133,50 @@
             return this._player;
         },
 
-        mouseEnter : function (){
-//            this._player.pause();
-        },
 
-        mouseLeave : function (){
-//            this._player.play();
+        setItem : function (options, visible, focused, now) {
+            var el = $(options._el).stop();
+
+            if( visible == null ){
+                visible = this.filtered
+                    ? options._visible
+                    : this.config.list ? true : options._started;
+            }
+            else {
+                options._visible = visible;
+            }
+
+            if( focused == null ){ // restore
+                focused = options._running;
+                now = true;
+            }
+
+            if(! this.config.highlight ) {
+                focused = true;
+            }
+
+//            console.log(["filtered? ", this.filtered, options._visible,
+//                options._started,
+//                visible]);
+
+            var op = focused
+                ? 1
+                : visible ? .6 : 0;
+
+            el.toggle( Boolean(visible) );
+
+            if( now )
+                el.css('opacity', op);
+            else
+                el.animate({'opacity': op}, 1000);
         },
 
         focus : function (options) {
-            var el = $(options._el).animate({'opacity': 1}, 1000, function () {
-            });
+            this.setItem(options, null, true);
         },
 
         blur : function (options) {
-            if(! this.config.highlight )
-                return;
-            var el = $(options._el).animate({'opacity': .5}, 1000, function () {
-                el.css('opacity', '');
-            });
+            this.setItem(options, null, false);
         },
 
         hideAll : function () {
@@ -123,11 +191,16 @@
                 show = 1;
             else
                 show = 0;
-            $('#feeddiv').animate({'opacity': show});
+            $('#feeddiv').stop().animate({'opacity': show});
         },
 
         onFirstItem : function () {
             /// abstract, callback
+        },
+
+        search : function (query) {
+
+
         }
 
     };
@@ -146,12 +219,13 @@
             timefeed(options.target).add(options);
         },
         start : function (event, options) {
+            options._started = true;
             var tf = timefeed(options.target);
             if( ! tf.hasItems ){
                 tf.hasItems = true;
                 tf.onFirstItem && tf.onFirstItem();
             }
-            timefeed(options.target).render(options, this);
+            timefeed(options.target).focus(options);
         },
         end : function (event, options) {
             timefeed(options.target).blur(options);
