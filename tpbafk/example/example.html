@@ -6,80 +6,216 @@
     <script src="../../lib/popcorn/popcorn.js"></script>
 
     <script src="../timefeed.js"></script>
-    <script src="example.js"></script>
-
-    <link href="../timefeed.css" rel="stylesheet" />
+    <script src="player.js"></script>
+    <script src="scroller.js"></script>
+    <link href="player.css" rel="stylesheet" />
 
     <script type="text/javascript">
-        var example, feed;
+        var popcorn, feed, overlay;
 
         // ensure the web page (DOM) has loaded
         document.addEventListener("DOMContentLoaded", function () {
 
-            timefeed('#feeddiv', {
-                highlight: true
+            popcorn = Popcorn("#video");
+
+            popcorn.volume(0);
+
+            /* Timefeed */
+            feed = timefeed('#feeddiv', {
+//                list : true,
+//                highlight: false,
+                duration: 3
             });
 
-            // Create a popcorn instance by calling the Youtube player plugin
-            example = Popcorn("#video");
-            example.volume(0);
+            /* overlay mechanism */
+            overlay = new Overlay(popcorn, feed);
 
-            example.timefeed({
-                start: 1,
-                end: 5,
+            feed.onFirstItem = function () {
+                overlay.toggle(true);
+            };
+
+
+            /* Iscroll */
+//            scroller = new iScroll('feeddiv');
+            scrollable('#feeddiv');
+
+            /* Events */
+
+            popcorn.timefeed({
+                start: 1.25,
+                end: 3.5,
                 target : "#feeddiv",
-                title: 'Director',
-                body: 'Kevin Spacy',
-                href : "http://www.imdb.com/name/nm0000228/"
+                title: 'Web Made Movies',
+                href : "http://webmademovies.org/"
             });
 
-            example.timefeed({
+            popcorn.timefeed({
                 start: 6,
-                end: 10,
                 target : "#feeddiv",
-                body: 'PopcornJS',
+                title: 'Popcorn.js',
                 img : 'http://t1.gstatic.com/images?q=tbn:ANd9GcT4ayBDA8UuNphnD6GBpIr-4Ksp2evNkYhCMbxTr2Tt4S-7Pej6',
                 href : "http://www.popcornjs.org/"
             });
 
-            example.timefeed({
-                start: 8,
-                end: 12,
-                target : "#feeddiv",
-                title: '"...pirated disk..."',
-                body: 'The pirated CD was Depeche Mode',
-                img : "http://www.ihavesynth.com/sites/ihavesynth.com/files/blog/images/depeche-mode.jpg?1260893100",
-                href : "http://www.piratebay.com/some/deep/link/..."
-            });
 
-            example.timefeed({
-                start: 16,
-                end: 20,
+            popcorn.timefeed({
+                start: 10,
                 target : "#feeddiv",
-                title: '"...flying a kite..."',
-                body: 'Learn more about "kites"',
-                href : "http://www.wikipedia.org/some/deep/link/..."
+                title: 'HTML5',
+                img : 'http://www.w3.org/html/logo/img/mark-only-icon.png',
+                href : "http://www.w3.org/html/planet/"
             });
 
 
-            // generate placeholder cues
-            for(var i = 4; i < 15 ; i++ ){
-                example.timefeed({
-                    start: 4 * i + i,
-                    end: 4 * i + i + 5,
-                    target : "#feeddiv",
-                    title: '"quoted text here"',
-                    body: 'Test item ' + i,
-                    href : "http://www.google.com/some/deep/link/..."
-                });
+            popcorn.timefeed({
+                start: 18,
+                target : "#feeddiv",
+                title: 'New Orleans',
+                img : "http://sites.google.com/site/thedumballrally/news/draftroutepublished/google_maps_icon.png",
+                href : "http://g.co/maps/2kkzz"
+            });
 
-            }
+            popcorn.timefeed({
+                start: 20,
+                target : "#feeddiv",
+                title: 'Cape Town',
+                img : "http://sites.google.com/site/thedumballrally/news/draftroutepublished/google_maps_icon.png",
+                href : "http://g.co/maps/dbp5v"
+            });
+
+            popcorn.timefeed({
+                start: 23,
+                target : "#feeddiv",
+                title: 'Steve Song',
+                body: 'Founder of Village Telco',
+                img: 'http://manypossibilities.net/wp-content/uploads/2008/03/steve_song_mp1.jpg',
+                href : "http://manypossibilities.net/about/"
+            });
+
+            popcorn.timefeed({
+                start: 23,
+                target : "#feeddiv",
+                title: "Steve Song's Photostream",
+                img : "http://farm4.static.flickr.com/3110/3162540297_d865f69a9b.jpg",
+                href : "http://www.flickr.com/photos/ssong/"
+            });
+
+            popcorn.timefeed({
+                start: 29,
+                end: 33,
+                target : "#feeddiv",
+                title: 'Will Ferrell',
+                href : "http://www.imdb.com/name/nm0002071"
+            });
+
+            popcorn.timefeed({
+                start: 30,
+                target : "#feeddiv",
+                title: 'Popcorn (instrumental)',
+                href : "http://en.wikipedia.org/wiki/Popcorn_(instrumental)"
+            });
+
+            popcorn.timefeed({
+                start: 32,
+                end: 35,
+                target : "#feeddiv",
+                title: '#WillFerrel',
+                href : "http://twitter.com/#!/search/%23willferrell"
+            });
+
+            popcorn.timefeed({
+                start: 34,
+                target : "#feeddiv",
+                title: 'Will Ferrel',
+                href : "http://en.wikipedia.org/wiki/Will_Ferrell"
+            });
+            popcorn.timefeed({
+                start: 37,
+                target : "#feeddiv",
+                title: 'PBS Newshour',
+                body: 'State Of The Union 2011 Annotated',
+                href : "http://www.pbs.org/newshour/sotu-video/"
+            });
+
+            popcorn.timefeed({
+                start: 40,
+                target : "#feeddiv",
+                title: 'ARTE - Notre poison quotidien',
+                img: 'http://c1345842.cdn.cloudfiles.rackspacecloud.com/assets/apps/icons/000/263/489/original.png?1278574419',
+                href : "http://notre-poison-quotidien.arte.tv/fr"
+            });
+
+            popcorn.timefeed({
+                start: 43,
+                target : "#feeddiv",
+                title: 'Rebellious Pixels',
+                body: "HTML5 Source Annotation Display",
+                img: 'http://www.sutree.com/upload/qzkggmilwjtexrrfqziqo/donald_duck_icon.gif',
+                href : "http://www.rebelliouspixels.com/semanticremix/"
+            });
+
+            popcorn.timefeed({
+                start: 45,
+                target : "#feeddiv",
+                title: 'Bieber PopUp Video Demo',
+                img : "http://a2.twimg.com/profile_images/1610948494/1264459-bieber-cover-NO-quote_reasonably_small.jpeg",
+                href : "http://avnerd.tv/d2bd/bieber.html"
+            });
+
+            popcorn.timefeed({
+                start: 49,
+                target : "#feeddiv",
+                title: 'Popcorn Maker',
+                body: "Built with Butter",
+                img : "http://mozillapopcorn.org/wp-content/themes/popcorn/images/for_makers.png",
+                href : "http://mozillapopcorn.org/popcorn-maker/"
+            });
+            popcorn.timefeed({
+                start: 53.5,
+                target : "#feeddiv",
+                title: 'Plugins - Popcorn.js',
+                img : 'http://t1.gstatic.com/images?q=tbn:ANd9GcT4ayBDA8UuNphnD6GBpIr-4Ksp2evNkYhCMbxTr2Tt4S-7Pej6',
+                href : "http://popcornjs.org/plugins"
+            });
+
+            popcorn.timefeed({
+                start: 57,
+                target : "#feeddiv",
+                title: 'Popcorn.js',
+                body: 'GitHub Open Source',
+                href : "https://github.com/webmademovies/popcorn-js"
+            });
+
+            popcorn.timefeed({
+                start: 60,
+                target : "#feeddiv",
+                title: 'Community - Popcorn.js',
+                img : 'http://t1.gstatic.com/images?q=tbn:ANd9GcT4ayBDA8UuNphnD6GBpIr-4Ksp2evNkYhCMbxTr2Tt4S-7Pej6',
+                href : "http://popcornjs.org/community"
+            });
+
+//
+//
+//            // generate placeholder cues
+//            for(var i = 4; i < 15 ; i++ ){
+//                popcorn.timefeed({
+//                    start: 4 * i + i,
+//                    end: 4 * i + i + 5,
+//                    target : "#feeddiv",
+//                    title: '"quoted text here"',
+//                    body: 'Test item ' + i,
+//                    href : "http://www.google.com/some/deep/link/..."
+//                });
+//
+//            }
 
             // initial render
-            toggleOverlay(true, true);
 
             // play
-            example.play();
+            popcorn.play();
+
+            if( popcorn.paused() )
+                $('.bigplay').show();
 
         }, false);
 
@@ -91,24 +227,37 @@
 
 </head>
 <body>
-<div class="container">
-    <video style="background:#000" id="video" preload="auto" autobuffer="" controls="" poster="http://videos.mozilla.org/serv/webmademovies/popcornposter.png">
-        <source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.mp4" type="video/mp4">
-        <source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.webm" type="video/webM">
-        <source src="http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.ogv" type="video/ogg">
-        <p>Your user agent does not support the HTML5 Video element.</p>
-    </video>
-    <!--<div id="viddeo">dum-->
-    <!--</div>-->
-    <div class="feed">
-        <div class="searchdiv">
-            <input type=text class="search" placeholder="Search">
+<div class="page">
+    <div id="videodiv" class="videodiv">
+        <div class="bigplay">
+            <!--<div class="play_btn">-->
+                <!--PLAY-->
+            <!--</div>-->
         </div>
-        <div id="feeddiv">
+        <video style="background:#000" id="video" preload="auto" controls="true" autobuffer="true">
+            <source src="../../lib/media/wtfpopcorn.ogv" type="video/ogg">
+            <source src="../../lib/media/wtfpopcorn.mp4" type="video/mp4">
+            <p>Your user agent does not support the HTML5 Video element.</p>
+        </video>
+        <div class="tab" class="">
+            <span class="closed">&laquo;</span>
+            <span class="opened">&raquo;</span>
+        </div>
+    </div>
+
+    <div class="drawer">
+        <!--toggle tab-->
+        <div class="column">
+            <div class="searchdiv">
+                <div class="close_btn">
+                </div>
+                <input type=text class="search" placeholder="Search">
+            </div>
+            <div id="feeddiv">
+            </div>
+        </div>
     </div>
 </div>
-
-
 
 </body>
 </html>
