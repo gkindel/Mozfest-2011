@@ -13,10 +13,10 @@ var Overlay = function (popcorn) {
         $('.bigplay').hide();
     });
 
-    $('.tab').bind("click", function (e){
-        self.toggle();
-        e.preventDefault();
-    });
+//    $('.tab').bind("click", function (e){
+//        self.toggle();
+//        e.preventDefault();
+//    });
 
     $('#video').bind('click touchend', function (){
         if( popcorn.paused() )
